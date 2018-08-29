@@ -288,11 +288,11 @@ class PageToolbar(CMSToolbar):
                 page=self.page,
                 site=self.current_site
             )
+        elif self.statics:
+            publish_permission = all(sp.has_publish_permission(self.request) for sp in self.dirty_statics)
         else:
             publish_permission = False
 
-        if publish_permission and self.statics:
-            publish_permission = all(sp.has_publish_permission(self.request) for sp in self.dirty_statics)
         return publish_permission
 
     def has_unpublish_permission(self):
